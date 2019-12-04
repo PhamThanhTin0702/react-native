@@ -34,6 +34,12 @@ target 'Test' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+  
+  pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
+
+  pod 'react-native-image-resizer', :path => '../node_modules/react-native-image-resizer'
+
   target 'TestTests' do
     inherit! :search_paths
     # Pods for testing

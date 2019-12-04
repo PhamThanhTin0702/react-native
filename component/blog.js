@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import { View, StyleSheet, Image, Text } from 'react-native'
+import { View, StyleSheet, Image, Text, TouchableOpacity, useState } from 'react-native'
+import {connect} from 'react-redux'
 
 export default class Blog extends Component {
     constructor(props) {
@@ -10,88 +11,79 @@ export default class Blog extends Component {
     }
     render() {
         return (
-            <View style = { styles.container }>
-                <View style = { styles.header }>
-                    <Image
-                        style = { styles.avatar }
-                        source = {{ uri: "/Users/phamthanhtan/Desktop/React-Native/Test/images/background/landscape.png" }}
-                    />
-                </View>
-                <View style = { styles.content }>
-                    <Text style = { styles.title }>This Is A React Native</Text>
-                    <Text style = { styles.textConent }> {this.state.content} </Text>
-                </View>
-                <View style = { styles.footer }>
-                    <View>
-                        <Text>Thanh Tin</Text>
-                        <Text>7 Hours</Text>
-                    </View>
-                    <View>
+                <View style = { styles.container } >
+                    <View style = { styles.header }>
                         <Image
-                            style = { styles.iconStar }
-                            source = {{ uri: "/Users/phamthanhtan/Desktop/React-Native/Test/images/icons/star.png" }}
+                            style = { styles.avatar }
+                            source = {{ uri: "/Users/phamthanhtan/Desktop/React-Native/Test/images/background/images1.jpeg" }}
                         />
                     </View>
+                    <View style = { styles.content }>
+                        <Text numberOfLines = {2} style = { styles.title}>{this.props.blog.title}</Text>
+                        <Text style = { styles.textConent }>{this.props.blog.name}</Text>
+                        <Text style = { styles.date }>{this.props.blog.date}</Text>
+                    </View>
                 </View>
-            </View>
         );
     }
 }
 
+// export default connect(
+//     state => {
+//         return {
+//             data: state
+//         }
+//     }
+// ) (Blog)
+
 var styles = StyleSheet.create({
     container: {
-        height: 500,
-        width: '100%',
+        height: 400,
         borderWidth: 1,
         borderColor: 'black',
-        borderRadius: 10,
         flexDirection: 'column',
+        margin: 20,
+        // backgroundColor: 'red',
     },
     header: {
-        backgroundColor: 'pink',
-        flex: 3,
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-        alignItems: 'center'
+        flex: 5,
+        alignItems: 'center',
     },
     content: {
-        backgroundColor: '#F3F3F3',
-        flex: 6,
-        padding: 20
-    },
-    footer: {
-        backgroundColor: '#F3F3F3',
-        flex: 1,
-        borderBottomRightRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderTopWidth: 1,
-        flexDirection: 'row',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        flex: 5,
+        padding: 20,
+        alignItems: 'center',
+        alignContent: 'center',
     },
     avatar: {
-        height: '100%',
-        width: '100%',
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
+        height: 179,
+        width: 372,
+        resizeMode: 'stretch'
     },
     name: {
         fontSize: 30
     },
     title: {
-        fontSize: 40,
+        fontSize: 35,
         textAlign: 'center',
-        marginBottom: 20
+        marginBottom: 30,
+        fontFamily: 'Arciform',
+        textDecorationLine: 'underline',
     },
     textConent: {
-        fontSize: 20,
-        letterSpacing: 1,
-        lineHeight: 30
+        fontSize: 15,
+        fontFamily: 'Aerotis',
+        fontSize: 30,
     },
     iconStar: {
         height: 35,
         width: 35,
-        borderRadius: 35/2
+        borderRadius: 35/2,
+    },
+    date: {
+        color: '#FF6666',
+        textDecorationLine: 'underline',
+        paddingBottom: 10,
+        color: '#66FFFF'
     }
 })

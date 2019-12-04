@@ -4,11 +4,17 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import io.github.elyx0.reactnativedocumentpicker.DocumentPickerPackage; // Import package
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
+
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -31,6 +37,15 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected String getJSMainModuleName() {
           return "index";
+        }
+
+        @Override
+        protected List<ReactPackage> getPackages() {
+          return Arrays.<ReactPackage>asList(
+              new MainReactPackage(),
+            new ImageResizerPackage(),
+                new DocumentPickerPackage(), // Add package
+          );
         }
       };
 
