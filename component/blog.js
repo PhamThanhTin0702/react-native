@@ -101,6 +101,7 @@ var styles = StyleSheet.create({
   header: {
     flex: 5,
     alignItems: 'center',
+    position: 'relative'
   },
   content: {
     flex: 5,
@@ -111,9 +112,10 @@ var styles = StyleSheet.create({
     paddingBottom: 10
   },
   avatar: {
-    height: 179,
-    width: 372,
+    height: '100%',
+    width: '100%',
     resizeMode: 'stretch',
+    position: 'absolute'
   },
   name: {
     fontSize: 25,

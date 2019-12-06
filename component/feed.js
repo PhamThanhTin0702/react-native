@@ -60,6 +60,7 @@ export default class Feed extends Component {
           <TextInput
             style={styles.input}
             placeholder="Type something to search ..."
+            placeholderTextColor = "black"
           />
           <TouchableOpacity style = { styles.button_icon_alert }>
             <Image
@@ -170,6 +171,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: '#E5E2E2',
     paddingLeft: 5,
+    
   },
   icon_footer: {
     height: 40,

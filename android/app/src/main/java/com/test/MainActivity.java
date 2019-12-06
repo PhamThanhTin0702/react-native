@@ -1,9 +1,10 @@
 package com.test;
 
 import com.facebook.react.ReactActivity;
+import com.facebook.react.modules.core.PermissionListener;
 
 public class MainActivity extends ReactActivity {
-  private PermissionListener listener
+  private PermissionListener listener;
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
@@ -13,7 +14,7 @@ public class MainActivity extends ReactActivity {
     return "Test";
   }
 
-  @Override
+  //@Override
   public void setPermissionListener(PermissionListener listener)
   {
     this.listener = listener;
@@ -28,4 +29,7 @@ public class MainActivity extends ReactActivity {
     }
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
   }
+
+
+
 }

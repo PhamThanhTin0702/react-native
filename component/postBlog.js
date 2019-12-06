@@ -104,17 +104,34 @@ export default class PostBlog extends Component {
     }
   };
 
+  closeImage = (index) => {
+    const currentImageFile = this.state.imageFile
+    currentImageFile.some((item, idx) => {
+      if(idx === index) {
+        const afterRemove = currentImageFile.splice(idx,1)
+        this.setState({
+          imageFile: currentImageFile
+        })
+        return true;
+      }
+      return false;
+    })
+  }
+
   createImage = () => {
     if(this.state.imageFile[this.state.imageFile.length-1]) {
       return (
         <TouchableOpacity style={styles.size_button_images}>
-          <Image
+          {/* <Image
             style={styles.size_images}
             source={{
               uri:
                 this.state.imageFile[1],
             }}
-          />
+          /> */}
+          <View >
+            
+          </View>
         </TouchableOpacity>
       )
     }
@@ -146,6 +163,19 @@ export default class PostBlog extends Component {
                       item
                   }}
                 />
+                <View style = { styles.size_close_image }>
+                  <TouchableOpacity 
+                  style = { styles.button_icon_close }
+                  onPress = { () => {
+                    this.closeImage(index)
+                  } }>
+                  
+                    <Image
+                      style = { styles.icon_close }
+                      source = { source = require('../assets/images/icons/close.png') }
+                    />
+                  </TouchableOpacity>
+                </View>
                 </TouchableOpacity>
             ))}
           </ScrollView>
@@ -184,17 +214,14 @@ const styles = StyleSheet.create({
   button_icon_add: {
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative'
   },
   icon_add: {
     height: 50,
     width: 50,
   },
-  size_images: {
-    height: 50,
-    width: 50,
-  },
   size_button_images: {
-    height: 140,
+    height: '100%',
     width: 110,
     borderWidth: 1,
     borderColor: 'gray',
@@ -202,17 +229,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   size_images: {
-    height: 140,
-    width: 110,
+    height: '100%',
+    width: '100%',
     borderRadius: 10,
-    resizeMode: 'stretch'
+    resizeMode: 'stretch',
+    position: 'absolute'
   },
   
   text_title: {
     fontSize: 25,
     height: 30,
     marginTop: 20,
-    flex: 0.5,
+    flex: 1
+   
   },
   input_title: {
     //height: 30,
@@ -224,7 +253,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 30,
     marginTop: 10,
-    flex:2
+    flex: 1
   },
   input_content: {
     height: '100%',
@@ -235,11 +264,30 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingLeft: 10,
     fontSize: 30,
-    flex:6
+    flex: 7
   },
   icon_send: {
     height: 30,
     width: 30,
     marginRight: 10
+  },
+  size_close_image: {
+    position: 'absolute',
+    height: 30,
+    width: 30,
+    top: '2%',
+    right: '2%',
+    //backgroundColor: 'red',
+    
+  },
+  icon_close: {
+    height: 20,
+    width: 20
+  },
+  button_icon_close: {
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
