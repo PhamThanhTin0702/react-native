@@ -7,10 +7,13 @@ import {
   ScrollView,
   Alert,
   TextInput,
-  Text
+  Text,
+  Button
 } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import ImageResizer from 'react-native-image-resizer'
+import ImagePicker from 'react-native-image-picker'
+
 
 export default class PostBlog extends Component {
   constructor(props) {
@@ -22,20 +25,27 @@ export default class PostBlog extends Component {
     };
   }
 
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerRight: () => (
+        <TouchableOpacity onPress = { () => {
+          navigation.goBack()
+        } }>
+          <Image
+            style = { styles.icon_send }
+            source={source=require('../assets/images/icons/send.png')} 
+          ></Image>
+        </TouchableOpacity>
+      )
+    };
+  };
+
   UNSAFE_componentWillMount() {
-    console.log("-----------------------")
-    console.log("State image before update" ,this.state.imageFile)
-    console.log("-----------------------")
+    
   }
 
   componentDidUpdate() {
-    console.log("-----------------------")
-    console.log("State image after update" ,this.state.imageFile)
-    console.log("-----------------------")
-    //this.createImage()
-    console.log("----------Reize Image-------------")
-    this.resizeImage("/Users/phamthanhtan/Desktop/React-Native/Test/images/background/images.jpeg")
-    console.log("----------Reize Image-------------")
   }
 
   resizeImage = async (imageUri) => {
@@ -46,6 +56,28 @@ export default class PostBlog extends Component {
 
   }
 
+
+  openPhotos = () => {
+    const options = {
+      title: 'Select Avatar',
+      //customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    try {
+      ImagePicker.launchImageLibrary(options, (resImage) => {
+        this.setState({
+          imageFile: this.state.imageFile.concat(resImage.uri)
+        })
+      })
+    } catch (error) {
+      throw new Error(error)
+    }
+     
+  }
 
   openFolder = async () => {
     try {
@@ -97,14 +129,11 @@ export default class PostBlog extends Component {
             <TouchableOpacity
               style={[styles.size_button_images, styles.button_icon_add]}
               onPress={() => {
-                this.openFolder();
+                this.openPhotos();
               }}>
               <Image
                 style={styles.icon_add}
-                source={{
-                  uri:
-                    '/Users/phamthanhtan/Desktop/React-Native/Test/images/icons/plus.png',
-                }}
+                source={source=require('../assets/images/icons/plus.png')}
               />
             </TouchableOpacity>
             {this.state.imageFile.map((item, index) => (
@@ -122,10 +151,10 @@ export default class PostBlog extends Component {
           </ScrollView>
         </View>
         <View style={styles.body}>
-          <Text style = { styles.text_title }>Title</Text>
-          <TextInput style = { styles.input_title } multiline = {true}></TextInput>
-          <Text style = { styles.text_title }>Please share something</Text>
-          <TextInput style = { styles.input_content } multiline = {true}></TextInput>
+          <Text style = { styles.text_title } >Title</Text>
+          <TextInput style = { styles.input_title } multiline = {true} placeholder = "Please type title here"></TextInput>
+          <Text style = { styles.text_title }>Share something</Text>
+          <TextInput style = { styles.input_content } multiline = {true} placeholder = "Type here, If you'd like"></TextInput>
         </View>
       </View>
     );
@@ -134,14 +163,17 @@ export default class PostBlog extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    //backgroundColor: 'yellow'
+    height: "100%",
+    width: '100%',
+    paddingBottom: 20,
   },
   header: {
     flex: 2,
     paddingLeft: 10,
     borderBottomColor: 'gray',
-    borderBottomWidth: 0.5
+    borderBottomWidth: 0.5,
+    paddingTop: 10,
+    paddingBottom: 10
     //backgroundColor: 'blue',
     //flexDirection: 'row'
   },
@@ -167,7 +199,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     marginRight: 20,
-    marginTop: 10,
     borderRadius: 10,
   },
   size_images: {
@@ -180,10 +211,11 @@ const styles = StyleSheet.create({
   text_title: {
     fontSize: 25,
     height: 30,
-    marginTop: 10
+    marginTop: 20,
+    flex: 0.5,
   },
   input_title: {
-    height: 60,
+    //height: 30,
     width: '100%',
     borderWidth: 0.5,
     borderColor: 'gray',
@@ -191,10 +223,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingLeft: 10,
     fontSize: 30,
-    marginBottom: 20
+    marginTop: 10,
+    flex:2
   },
   input_content: {
-    height: '70%',
+    height: '100%',
     width: '100%',
     borderWidth: 0.5,
     borderColor: 'gray',
@@ -202,5 +235,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingLeft: 10,
     fontSize: 30,
+    flex:6
+  },
+  icon_send: {
+    height: 30,
+    width: 30,
+    marginRight: 10
   }
 });

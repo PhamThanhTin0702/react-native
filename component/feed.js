@@ -16,9 +16,37 @@ import array from '../data/data';
 
 export default class Feed extends Component {
 
-  showInfo = item => {
-    Alert.alert(item);
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      showBarIconBlog: false,
+      statusShowBlog: () => {
+        return (Array(array.feeds.length).fill(false))
+      }
+    }
+  }
+
+
+  UNSAFE_componentWillMount() {
+  }
+
+
+  componentDidUpdate() {
+  }
+
+  UNSAFE_componentWillUpdate() {
+
+  }
+  setShowRatingBlog = (index) => {
+    const currentShow = this.state.statusShowBlog()[index]
+    this.setState({
+      statusShowBlog: () => {
+        return (
+          Array(array.feeds.length).fill(false).fill(!currentShow, index, index+1)
+        )
+      }
+    })
+  }
 
   render() {
     const feeds = array.feeds;
@@ -26,10 +54,7 @@ export default class Feed extends Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
-            source={{
-              uri:
-                '/Users/phamthanhtan/Desktop/React-Native/Test/images/icons/man.png',
-            }}
+            source={require('../assets/images/icons/man.png')}
             style={styles.avatar}
           />
           <TextInput
@@ -38,10 +63,7 @@ export default class Feed extends Component {
           />
           <TouchableOpacity style = { styles.button_icon_alert }>
             <Image
-              source={{
-                uri:
-                  '/Users/phamthanhtan/Desktop/React-Native/Test/images/icons/bell.png',
-              }}
+              source={source=require('../assets/images/icons/bell.png')}
               style={styles.icon_alert}
             />
             <View style = { styles.size_box_alert }>
@@ -54,13 +76,24 @@ export default class Feed extends Component {
             {feeds.map((item, index) => (
               <TouchableOpacity
                 key={index}
+                name = {item.name}
+                status = {true}
+                onLongPress = { () => {
+                  this.setShowRatingBlog(index)
+                }}
+                
+
                 onPress={() => {
-                  this.props.navigation.navigate('BlogDetail', {
-                    blogdetail: item,
-                  });
+                  if(this.state.statusShowBlog()[index] === true) {
+                    this.setShowRatingBlog(index)
+                  } else {
+                    this.props.navigation.navigate('BlogDetail', {
+                      blogdetail: item,
+                    });
+                  }
                   
                 }}>
-                <Blog blog={item} />
+                <Blog blog={item} showBlog={this.state.statusShowBlog()[index]} />
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -68,10 +101,7 @@ export default class Feed extends Component {
         <View style={styles.footer}>
           <TouchableOpacity>
             <Image
-              source={{
-                uri:
-                  '/Users/phamthanhtan/Desktop/React-Native/Test/images/icons/avatar.png',
-              }}
+              source={source=require('../assets/images/icons/avatar.png')}
               style={styles.icon_footer}
             />
           </TouchableOpacity>
@@ -80,23 +110,18 @@ export default class Feed extends Component {
               this.props.navigation.navigate('PostBlog');
             }}>
             <Image
-              source={{
-                uri:
-                  '/Users/phamthanhtan/Desktop/React-Native/Test/images/icons/plus.png',
-              }}
+              source={source=require('../assets/images/icons/plus.png')}
               style={styles.icon_footer}
             />
           </TouchableOpacity>
           <TouchableOpacity>
             <Image
-              source={{
-                uri:
-                  '/Users/phamthanhtan/Desktop/React-Native/Test/images/icons/feed.png',
-              }}
+              source={source=require('../assets/images/icons/feed.png')}
               style={styles.icon_footer}
             />
           </TouchableOpacity>
         </View>
+        
       </View>
     );
   }
@@ -175,5 +200,6 @@ const styles = StyleSheet.create({
   },
   text_alert: {
     color: 'white'
-  }
+  },
+  
 });

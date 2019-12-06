@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, Image, Text, ScrollView } from 'react-native'
 import { SliderBox } from 'react-native-image-slider-box'
+import landscape_1 from '../assets/images/background/images.jpeg'
+//import landscape_2 from '../assets/images/background/images1.jpeg'
+const image1 = require('../assets/images/background/images.jpeg'); 
 
 export default class BlogDetail extends Component {
 
@@ -8,9 +11,9 @@ export default class BlogDetail extends Component {
         super(props)
         this.state = {
             images: [
-                "/Users/phamthanhtan/Desktop/React-Native/Test/images/background/images.jpeg",
-                "/Users/phamthanhtan/Desktop/React-Native/Test/images/background/images2.jpeg",
-                "/Users/phamthanhtan/Desktop/React-Native/Test/images/background/images1.jpeg"
+                "http://wayscapecounseling.org/wp-content/uploads/2018/08/Blurred-adventure-calm-clouds-414171.jpg",
+                "https://live.staticflickr.com/1868/44144079631_73dca88513_b.jpg",
+                "https://ze-robot.com/images/source/1799.jpg"
             ]
         }
     }
@@ -18,11 +21,12 @@ export default class BlogDetail extends Component {
     render() {
         const { navigation } = this.props
         const blogdetail = navigation.state.params.blogdetail
+        
         return (
             <View style={styles.container}>
                 <ScrollView>
                 <View style={styles.image_slider_box}>
-                    <SliderBox images={this.state.images}/>
+                    <SliderBox images ={this.state.images}/>
                 </View>
                 <View style={styles.body}>
                     <View style={styles.title}>

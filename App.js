@@ -8,8 +8,7 @@ import array from './data/data'
 import {createAppContainer} from 'react-navigation'
 import AppNavigator from './navigator'
 
-import { YellowBox } from 'react-native';
-YellowBox.ignoreWarnings(['Remote debugger']);
+console.disableYellowBox = true;
 //import store from './store/store'
 //import { add, sub } from './actions/action'
 
