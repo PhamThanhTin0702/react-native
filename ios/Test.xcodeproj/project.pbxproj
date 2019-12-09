@@ -5,8 +5,10 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* TestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TestTests.m */; };
+		049103CE29CA43118AD421BE /* Aerotis.otf in Resources */ = {isa = PBXBuildFile; fileRef = C21D4C61607D43C883FCF8E5 /* Aerotis.otf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -16,13 +18,12 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* TestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TestTests.m */; };
 		36CC3431AB374AE0983B02BF /* vincHand.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F25D55DD5D94E37A9589FD3 /* vincHand.ttf */; };
+		765C486533E14043AFA18032 /* Arciform.otf in Resources */ = {isa = PBXBuildFile; fileRef = 67C78C5034E74E06AFC5EF99 /* Arciform.otf */; };
 		91CEE5463493F21E04BA5244 /* libPods-Test-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2FC916E885414CB6C53E35 /* libPods-Test-tvOS.a */; };
 		949E9B5C439CA45D7AE0ADE5 /* libPods-Test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9F081CC4092DB555FA25DB /* libPods-Test.a */; };
 		CB4D10DB072DD98E68E95843 /* libPods-Test-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C9089D51962557DC796277 /* libPods-Test-tvOSTests.a */; };
-		DB4CBABECE191F7F65692ED3 /* libPods-TestTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D74FA6DFCA8F8C7531514 /* libPods-TestTests.a */; };
 		D8B96E9086C7474A8029133B /* Quikhand.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3435658059243918B612224 /* Quikhand.ttf */; };
-		765C486533E14043AFA18032 /* Arciform.otf in Resources */ = {isa = PBXBuildFile; fileRef = 67C78C5034E74E06AFC5EF99 /* Arciform.otf */; };
-		049103CE29CA43118AD421BE /* Aerotis.otf in Resources */ = {isa = PBXBuildFile; fileRef = C21D4C61607D43C883FCF8E5 /* Aerotis.otf */; };
+		DB4CBABECE191F7F65692ED3 /* libPods-TestTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D74FA6DFCA8F8C7531514 /* libPods-TestTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,19 +62,19 @@
 		3F25D55DD5D94E37A9589FD3 /* vincHand.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = vincHand.ttf; path = ../assets/fonts/vincHand.ttf; sourceTree = "<group>"; };
 		4F9F081CC4092DB555FA25DB /* libPods-Test.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		504E7F8D72C64D384109B0AB /* Pods-Test-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Test-tvOS/Pods-Test-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		67C78C5034E74E06AFC5EF99 /* Arciform.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Arciform.otf; path = ../assets/fonts/Arciform.otf; sourceTree = "<group>"; };
 		86A21838222B1CF75742849D /* Pods-Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test.debug.xcconfig"; path = "Target Support Files/Pods-Test/Pods-Test.debug.xcconfig"; sourceTree = "<group>"; };
 		9E2E2672185E557D16503EB8 /* Pods-Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test.release.xcconfig"; path = "Target Support Files/Pods-Test/Pods-Test.release.xcconfig"; sourceTree = "<group>"; };
 		A62C416A2388228B90EB83F4 /* Pods-Test-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Test-tvOSTests/Pods-Test-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B3435658059243918B612224 /* Quikhand.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Quikhand.ttf; path = ../assets/fonts/Quikhand.ttf; sourceTree = "<group>"; };
 		BB69A26574FBE0E5A23ECA89 /* Pods-Test-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Test-tvOS/Pods-Test-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		C21D4C61607D43C883FCF8E5 /* Aerotis.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Aerotis.otf; path = ../assets/fonts/Aerotis.otf; sourceTree = "<group>"; };
 		CFA55EC84DBBCD529E564A36 /* Pods-Test-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Test-tvOSTests/Pods-Test-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D5C9089D51962557DC796277 /* libPods-Test-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Test-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A3746CB31082A4F6C29F55 /* Pods-TestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTests.debug.xcconfig"; path = "Target Support Files/Pods-TestTests/Pods-TestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F6E65560880DF1D99FE5CAC7 /* Pods-TestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTests.release.xcconfig"; path = "Target Support Files/Pods-TestTests/Pods-TestTests.release.xcconfig"; sourceTree = "<group>"; };
-		B3435658059243918B612224 /* Quikhand.ttf */ = {isa = PBXFileReference; name = "Quikhand.ttf"; path = "../assets/fonts/Quikhand.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		67C78C5034E74E06AFC5EF99 /* Arciform.otf */ = {isa = PBXFileReference; name = "Arciform.otf"; path = "../assets/fonts/Arciform.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C21D4C61607D43C883FCF8E5 /* Aerotis.otf */ = {isa = PBXFileReference; name = "Aerotis.otf"; path = "../assets/fonts/Aerotis.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,10 +324,9 @@
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Test" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);

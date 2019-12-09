@@ -240,7 +240,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     height: 30,
     marginTop: 20,
-    flex: 1
+    flex: 1,
+    fontFamily: 'Arciform',
    
   },
   input_title: {
