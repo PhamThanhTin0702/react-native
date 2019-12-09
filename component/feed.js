@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Blog from './blog';
 import array from '../data/data';
+import ServerPage from './serveralPage'
 
 export default class Feed extends Component {
 
@@ -22,6 +23,10 @@ export default class Feed extends Component {
       showBarIconBlog: false,
       statusShowBlog: () => {
         return (Array(array.feeds.length).fill(false))
+      },
+      showPage: {
+        feeds: true,
+        serveralPage: false
       }
     }
   }
@@ -47,6 +52,46 @@ export default class Feed extends Component {
       }
     })
   }
+
+  renderFeeds = (feeds) => {
+    console.log(this.state.showPage.feeds === true)
+    if(this.state.showPage.feeds === true) {
+      return (
+        feeds.map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            name = {item.name}
+            status = {true}
+            onLongPress = { () => {
+              this.setShowRatingBlog(index)
+            }}
+            onPress={() => {
+              if(this.state.statusShowBlog()[index] === true) {
+                this.setShowRatingBlog(index)
+              } else {
+                this.props.navigation.navigate('BlogDetail', {
+                  blogdetail: item,
+                });
+              }
+              
+            }}>
+            <Blog blog={item} showBlog={this.state.statusShowBlog()[index]} />
+          </TouchableOpacity>
+        ))
+      )
+    }
+  }
+
+  renderServeralPage = () => {
+    console.log(this.state.showPage.serveralPage)
+    if(this.state.showPage.serveralPage === true)
+    {
+      return (
+        <ServerPage/>
+      )
+    }
+  }
+
 
   render() {
     const feeds = array.feeds;
@@ -74,33 +119,22 @@ export default class Feed extends Component {
         </View>
         <View style={styles.content}>
           <ScrollView style={styles.scrollView}>
-            {feeds.map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                name = {item.name}
-                status = {true}
-                onLongPress = { () => {
-                  this.setShowRatingBlog(index)
-                }}
-                
-
-                onPress={() => {
-                  if(this.state.statusShowBlog()[index] === true) {
-                    this.setShowRatingBlog(index)
-                  } else {
-                    this.props.navigation.navigate('BlogDetail', {
-                      blogdetail: item,
-                    });
-                  }
-                  
-                }}>
-                <Blog blog={item} showBlog={this.state.statusShowBlog()[index]} />
-              </TouchableOpacity>
-            ))}
+            {
+              this.renderFeeds(feeds)
+            }
+            {this.renderServeralPage()}
           </ScrollView>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity>
+          <TouchableOpacity
+          onPress = { ()=> {
+            this.setState({
+              showPage: {
+                feeds: false,
+                serveralPage: true
+              }
+            })
+          }}>
             <Image
               source={source=require('../assets/images/icons/avatar.png')}
               style={styles.icon_footer}
@@ -115,7 +149,15 @@ export default class Feed extends Component {
               style={styles.icon_footer}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+          onPress = { ()=> {
+            this.setState({
+              showPage: {
+                feeds: true,
+                serveralPage: false
+              }
+            })
+          }}>
             <Image
               source={source=require('../assets/images/icons/feed.png')}
               style={styles.icon_footer}
