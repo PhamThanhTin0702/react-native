@@ -18,6 +18,7 @@
     "react-native-image-picker": "^1.1.0",
     "react-native-image-resizer": "^1.1.0",
     "react-native-image-slider-box": "^1.0.5",
+    "react-native-linear-gradient": "^2.5.6",
     "react-native-page-list": "^1.1.1",
     "react-native-permissions": "^2.0.6",
     "react-native-scalable-image": "^1.0.0",
