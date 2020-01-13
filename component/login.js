@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {View, StyleSheet, TextInput, TouchableOpacity, Text, Image, Modal} from 'react-native'
 import axios from 'axios'
+var config = require('../config/config')
 
 export default class Login extends Component {
 
@@ -13,16 +14,32 @@ export default class Login extends Component {
         }
     }
 
+    signIn = () => {
+        
+            var infoUser = {
+                email: this.state.email,
+                password: this.state.password
+            }
+            axios.post(config.server+'/api/user', {infoUser}).then((result) => {
+                alert('Registry Successfully')
+            }).catch((err) => {
+                alert('Registry Fail or email is existed')
+            })
+        
+    }
+
+
     login = async () => {
         try {
-            var result = await axios.get('http://localhost:5000/api/user/login/'+this.state.email+'/'+this.state.password, {
+            var result = await axios.get(config.server+'/api/user/login/'+this.state.email+'/'+this.state.password, {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
             })
             if(result.data.data) {
-                this.props.navigation.navigate('NewFeed')
+                var emailUser = result.data.data.email
+                this.props.navigation.navigate('NewFeed', {email: emailUser})
                 this.setState({
                     email: '',
                     password: ''
@@ -89,7 +106,11 @@ export default class Login extends Component {
                             <Text style = { style.colorText }>Login</Text>                            
                         </TouchableOpacity>
 
-                        <TouchableOpacity style = { [style.sizeButton] }>
+                        <TouchableOpacity 
+                        style = { [style.sizeButton] }
+                        onPress = {()=> {
+                            this.signIn()
+                        }}>
                             <Text style = { style.colorText }>Sign up</Text>                            
                         </TouchableOpacity>
                     </View>

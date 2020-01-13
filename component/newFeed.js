@@ -9,13 +9,14 @@ import {
   Modal,
   TextInput
 } from 'react-native';
-import {SliderBox} from 'react-native-image-slider-box';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import PageList from 'react-native-page-list';
+import socket from 'socket.io-client'
+var config = require('../config/config')
 
 export default class NewFeed extends Component {
   constructor(props) {
     super(props);
+    this.io = socket(config.server)
     this.state = {
       images: [
         `https://live.staticflickr.com/1868/44144079631_73dca88513_b.jpg`,
@@ -23,7 +24,48 @@ export default class NewFeed extends Component {
         `https://ze-robot.com/images/source/1799.jpg`,
       ],
       modalVisible: false,
+      chats: [],
+      messageInput: ''
     };
+  }
+
+  UNSAFE_componentWillMount() {
+      this.io.on('sendMessage', messages => {
+          this.setState({
+              chats: [...messages]
+          })
+      })
+  }
+
+  sendMessage = () => {
+    const {navigation} = this.props
+    var infoMessage = {
+        email: navigation.getParam('email'),
+        text: this.state.messageInput
+    }
+    this.io.emit('receiveMessage', infoMessage)
+    this.setState({
+        messageInput: '',
+        chats: this.state.chats.concat(infoMessage)
+    })
+  }
+
+  renderMessage = () => {
+      return ( this.state.chats.map((message) => (
+                <View style = { [style.rowItem, style.paddingView, style.centerJustity, style.boderViewMessage] }>
+                  <Image
+                    style = {[style.iconAvatar]}
+                    source = {(source = require('../assets/images/icons/man.png'))}
+                  />
+                  <View style = { [style.columnItem] }>
+                    <Text style = {[style.textStyle]}>{message.email}</Text>
+                    <Text style = {[style.textStyle]}>{message.text}</Text>
+                  </View>
+                  
+                </View>
+            ))
+          
+      )
   }
 
   setModalVisible(visible) {
@@ -104,6 +146,7 @@ export default class NewFeed extends Component {
                                 There are several definitions of what constitutes a landscape, depending on context. In common usage however, a landscape refers either to all the visible features of an area of land (usually rural), often considered in terms of aesthetic appeal, or to a pictorial representation of an area of countryside, specifically within the genre of landscape painting. When people deliberately improve the aesthetic appearance of a piece of land—by changing contours and vegetation, etc.—it is said to have been landscaped, though the result may not constitute a landscape according to some definitions. The word landscape (landscipe or landscaef) arrived in England—and therefore into the English language—after the fifth century, following the arrival of the Anglo-Saxons; these terms referred to a system of human-made spaces on the land. The term landscape emerged around the turn of the sixteenth century to denote a painting whose primary subject matter was natural scenery.
                             </Text>
                         </View>
+                        {this.renderMessage()}
                     </ScrollView>
                 </View>
               </View>
@@ -114,8 +157,17 @@ export default class NewFeed extends Component {
                   placeholder = "Type comment here..."
                   placeholderTextColor = "white"
                   multiline = {true}
+                  value = {this.state.messageInput}
+                  onChangeText = {(value)=> {
+                      this.setState({
+                          messageInput: value
+                      })
+                  }}
                   />
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                  onPress = {()=> {
+                      this.sendMessage()
+                  }}>
                       <Image
                       style = {style.iconSend}
                       source = {(source = require('../assets/images/icons/arrow.png'))}
@@ -237,10 +289,7 @@ const style = StyleSheet.create({
         borderRadius: 30/2
     },
     centerMultiText: {
-        textAlign: 'justify'
-    },
-    borderViewCaption: {
-        
+        textAlign: 'justify',
     },
     borderTextInput: {
         borderColor: 'white',
@@ -250,6 +299,15 @@ const style = StyleSheet.create({
         width: 300,
         paddingLeft: 10,
         paddingTop: 10,
-        marginRight: 10
+        marginRight: 10,
+    },
+    boderViewMessage: {
+        borderColor: '#1ac7cf',
+        borderWidth: 0.4,
+        marginBottom: 10,
+        borderRadius: 10
+    },
+    borderViewCaption: {
+        marginBottom: 15
     }
 });
