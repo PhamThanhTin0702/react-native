@@ -10,10 +10,12 @@ import {
 } from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
 import comments from '../data/comment';
+import socket from 'socket.io-client'
 
 export default class BlogDetail extends Component {
   constructor(props) {
     super(props);
+    this.io = socket('http://localhost:5000')
     this.state = {
       images: [
         'http://wayscapecounseling.org/wp-content/uploads/2018/08/Blurred-adventure-calm-clouds-414171.jpg',
@@ -21,35 +23,71 @@ export default class BlogDetail extends Component {
         'https://ze-robot.com/images/source/1799.jpg',
       ],
       comments: comments.getComment(),
-      commentUser: ''
+      commentUser: '',
+      chatMessages: []
     };
   }
 
-  createComment = () => {
-    return this.state.comments.map((item, index) => (
-      <View style={styles.comment}>
+
+  componentDidMount() {
+    this.io.on('sendMessage', messages => {
+      this.setState({
+        chatMessages: [...messages]
+      })
+    })
+  }
+
+  renderComment = (item) => {
+    if(item.name == 'thanhtan') {
+      return (
+        <View style={styles.commentSelf}>
+        <View style = {styles.user_comment}>
+            <Text style = { styles.username }>{item.name}</Text>
+            <Text>{item.comment}</Text>
+        </View>
+        <Image
+          style={styles.avatar}
+          source={(source = require('../assets/images/icons/man.png'))}
+        />
+      </View>
+      )
+    } else {
+      return (
+        <View style={styles.comment}>
         <Image
           style={styles.avatar}
           source={(source = require('../assets/images/icons/man.png'))}
         />
         <View style = {styles.user_comment}>
-            <Text style = { styles.username }>{item.username}</Text>
+            <Text style = { styles.username }>{item.name}</Text>
             <Text>{item.comment}</Text>
         </View>
       </View>
+      )
+    }
+  }
+  
+  createComment = () => {
+    return this.state.chatMessages.map((item, index) => (
+      this.renderComment(item)
     ));
   };
 
-  sendComment = (name, onComment) => {
-      const commentUser = {
-          username: name,
-          comment: onComment
-      }
-
-      const currentCommentArr = this.state.comments.concat(commentUser)
+  sendComment = (username ,onComment) => {
+    const commentUser = {
+      name: username,
+      comment: onComment
+    }
+      this.io.emit('receiveMessage', commentUser)
+      var currentChatMessage = this.state.chatMessages
+      currentChatMessage.push(commentUser)
       this.setState({
-          comments: currentCommentArr
+        chatMessages: [...currentChatMessage]
       })
+      this.io.on('listMessage', (messages) => {
+        console.log(messages)
+      })
+      
   }
 
   render() {
@@ -100,7 +138,7 @@ export default class BlogDetail extends Component {
             </TextInput>
             <TouchableOpacity
             onPress = { () => {
-                this.sendComment('User Test', this.state.commentUser)
+                this.sendComment('thanhtan' ,this.state.commentUser)
                 this.setState({
                     commentUser: ''
                 })
@@ -159,10 +197,10 @@ const styles = StyleSheet.create({
   footer: {
     flex: 1,
     //backgroundColor: 'red',
-    justifyContent: 'space-between',
+    //justifyContent: 'space-between',
     //alignContent: 'space-between',
     padding: 5,
-    paddingLeft: 10,
+    paddingLeft: 15,
     flexDirection: 'row',
     borderTopColor: 'gray',
     borderTopWidth: 0.5,
@@ -171,12 +209,13 @@ const styles = StyleSheet.create({
   },
   input_comment: {
     height: 40,
-    width: 300,
+    width: 230,
     borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 10,
     paddingLeft: 10,
     paddingTop: 10,
+    marginLeft: 20
   },
   scroll_view: {
     flex: 9,
@@ -194,7 +233,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 20,
-    paddingRight: 20,
     marginBottom: 20,
   },
   avatar: {
@@ -210,13 +248,22 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       borderWidth: 0.5,
       backgroundColor: '#C0C0C0',
-      padding: 5
+      padding: 5,
   },
   username: {
       fontWeight: 'bold'
   },
   icon_send_comment: {
       height: 30,
-      width: 30
+      width: 30,
+      marginLeft: 15,
+  },
+  commentSelf: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 400,
+    marginBottom: 20,
+    paddingRight: 20,
+    paddingLeft: 120
   }
 });

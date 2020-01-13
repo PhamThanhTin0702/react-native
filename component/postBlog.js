@@ -87,8 +87,6 @@ export default class PostBlog extends Component {
 
       if (file) {
         const imageResize = await this.resizeImage(file.uri)
-        const preImageFile = [...this.state.imageFile]
-        console.log(preImageFile)
         this.setState({
           imageFile: this.state.imageFile.concat(imageResize)
         })
