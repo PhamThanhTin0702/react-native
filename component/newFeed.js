@@ -7,7 +7,7 @@ import {
   ScrollView,
   Dimensions,
   Modal,
-  
+  TextInput
 } from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -87,7 +87,7 @@ export default class NewFeed extends Component {
             transparent={true}
             visible={this.state.modalVisible}
             >
-            <View style = {{ flex: 4, width: widthWindow}}>
+            <View style = {{ flex: 3, width: widthWindow}}>
                 <TouchableOpacity 
                 style = {{height: '100%'}}
                 onPress={() => {
@@ -97,7 +97,6 @@ export default class NewFeed extends Component {
             </View>
             <View style={ [style.sizeModal, style.borderModal] }>
               <View>
-                
                 <View>
                     <ScrollView>
                         <View style = { style.borderViewCaption }>
@@ -108,10 +107,21 @@ export default class NewFeed extends Component {
                     </ScrollView>
                 </View>
               </View>
-              <View>
-
-              </View>
             </View>
+            <View style = {{flex: 1, width: widthWindow, alignItems: 'center',backgroundColor: '#0e0e0e', padding: 10, flexDirection: 'row'}}>
+                  <TextInput 
+                  style = { [style.borderTextInput, style.textStyle] }
+                  placeholder = "Type comment here..."
+                  placeholderTextColor = "white"
+                  multiline = {true}
+                  />
+                  <TouchableOpacity>
+                      <Image
+                      style = {style.iconSend}
+                      source = {(source = require('../assets/images/icons/arrow.png'))}
+                      />
+                  </TouchableOpacity>
+              </View>
           </Modal>
 
       </View>
@@ -209,10 +219,11 @@ const style = StyleSheet.create({
      padding: 10
   },
   borderModal: {
-      borderWidth: 1,
+      borderWidth: 0.5,
       borderTopRightRadius: 10,
       borderTopLeftRadius: 10,
-      borderColor: 'white'
+      borderColor: 'white',
+      borderBottomColor: 'black'
     },
     viewButtonClose: {
         position: 'absolute',
@@ -220,20 +231,25 @@ const style = StyleSheet.create({
         height: 50,
         width: 50
     },
-    iconClose: {
-        height: 20,
-        width: 20,
-        borderRadius: 20/2
+    iconSend: {
+        height: 30,
+        width: 30,
+        borderRadius: 30/2
     },
     centerMultiText: {
         textAlign: 'justify'
     },
     borderViewCaption: {
-        borderTopColor: '#0e0e0e',
-        borderRightColor: '#0e0e0e',
-        borderLeftColor: '#0e0e0e',
-        borderBottomColor: 'white',
+        
+    },
+    borderTextInput: {
+        borderColor: 'white',
+        borderRadius: 10,
         borderWidth: 1,
-        marginTop: 20
+        height: 40,
+        width: 300,
+        paddingLeft: 10,
+        paddingTop: 10,
+        marginRight: 10
     }
 });
