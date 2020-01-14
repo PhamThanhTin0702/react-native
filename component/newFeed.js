@@ -172,10 +172,10 @@ export default class NewFeed extends Component {
               <View>
                 <ScrollView
                   ref = "scrollView"
-                  showsVerticalScrollIndicator={false}
-                  onContentSizeChange = {(wid, hei)=>{
+                  onContentSizeChange = {(wid, hei)=> {
                     this.refs.scrollView.scrollTo({y: hei})
                   }}
+                  showsVerticalScrollIndicator={false}
                   >
                   <View style={style.borderViewCaption}>
                     <Text style={[style.textStyle, style.centerMultiText]}>
@@ -203,7 +203,7 @@ export default class NewFeed extends Component {
                 </ScrollView>
               </View>
           </View>
-          {/* <KeyboardAvoidingView behavior = "position"
+          <KeyboardAvoidingView behavior = "padding"
           style = {{
             flex: 1,
             width: widthWindow,
@@ -211,16 +211,11 @@ export default class NewFeed extends Component {
             paddingRight: 10,
             backgroundColor: 'black',
             justifyContent: 'center'
-          }}> */}
+          }}>
             <View
             style = {{
-              flex: 1,
-              width: widthWindow,
-              paddingLeft: 10,
-              paddingRight: 10,
               flexDirection: 'row',
-              alignItems: 'center',
-              backgroundColor: 'black'
+              alignItems: 'center'
             }}>
               <TextInput
                 style={[style.borderTextInput, style.textStyle]}
@@ -244,7 +239,7 @@ export default class NewFeed extends Component {
                 />
               </TouchableOpacity>
             </View>
-          {/* </KeyboardAvoidingView> */}
+          </KeyboardAvoidingView>
           {/* <KeyboardAvoidingView behavior ="position" style = {{
               flex: 1,width: widthWindow,
               //alignItems: 'center',
@@ -282,7 +277,6 @@ export default class NewFeed extends Component {
     var widthWindow = Dimensions.get('window').width;
     var heightWindow = Dimensions.get('window').height;
     return (
-      <KeyboardAvoidingView behavior = "padding" style = {{flex: 1}}>
       <View style={style.main}>
         <View style={style.feed}>
           <ScrollView
@@ -302,7 +296,6 @@ export default class NewFeed extends Component {
           </TouchableOpacity>
         </View>
       </View>
-      </KeyboardAvoidingView>
     );
   }
 }
