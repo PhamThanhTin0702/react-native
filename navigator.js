@@ -15,7 +15,7 @@ const AppNavigator = createStackNavigator({
     Login: { screen: Login,
         navigationOptions: {
             headerStyle: {
-                backgroundColor: '#00253f'
+                backgroundColor: '#000000'
             }
         }
      },

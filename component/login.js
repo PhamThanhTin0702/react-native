@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, StyleSheet, TextInput, TouchableOpacity, Text, Image, Modal} from 'react-native'
+import {View, StyleSheet, TextInput, TouchableOpacity, Text, Image, ImageBackground} from 'react-native'
 import axios from 'axios'
 var config = require('../config/config')
 
@@ -57,7 +57,9 @@ export default class Login extends Component {
 
     render() {
         return (
-            <View style = {[style.main, style.centerItem]}>
+            <ImageBackground 
+            style = {[style.main, style.centerItem]}
+            source = {(source = require('../assets/images/background/background.png'))}>
                 <Image 
                 style = { [style.sizeLogo] }
                 source = {(source = require('../assets/images/icons/share.png'))} 
@@ -115,7 +117,7 @@ export default class Login extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </ImageBackground>
         )
     }
 }

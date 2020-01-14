@@ -171,8 +171,12 @@ export default class NewFeed extends Component {
           <View style={[style.sizeModal, style.borderModal]}>
               <View>
                 <ScrollView
-                  showsHorizontalScrollIndicator={false}
-                >
+                  ref = "scrollView"
+                  showsVerticalScrollIndicator={false}
+                  onContentSizeChange = {(wid, hei)=>{
+                    this.refs.scrollView.scrollTo({y: hei})
+                  }}
+                  >
                   <View style={style.borderViewCaption}>
                     <Text style={[style.textStyle, style.centerMultiText]}>
                       There are several definitions of what constitutes a
@@ -199,7 +203,7 @@ export default class NewFeed extends Component {
                 </ScrollView>
               </View>
           </View>
-          <KeyboardAvoidingView behavior = "position"
+          {/* <KeyboardAvoidingView behavior = "position"
           style = {{
             flex: 1,
             width: widthWindow,
@@ -207,11 +211,16 @@ export default class NewFeed extends Component {
             paddingRight: 10,
             backgroundColor: 'black',
             justifyContent: 'center'
-          }}>
+          }}> */}
             <View
             style = {{
+              flex: 1,
+              width: widthWindow,
+              paddingLeft: 10,
+              paddingRight: 10,
               flexDirection: 'row',
-              alignItems: 'center'
+              alignItems: 'center',
+              backgroundColor: 'black'
             }}>
               <TextInput
                 style={[style.borderTextInput, style.textStyle]}
@@ -235,7 +244,7 @@ export default class NewFeed extends Component {
                 />
               </TouchableOpacity>
             </View>
-          </KeyboardAvoidingView>
+          {/* </KeyboardAvoidingView> */}
           {/* <KeyboardAvoidingView behavior ="position" style = {{
               flex: 1,width: widthWindow,
               //alignItems: 'center',
@@ -273,6 +282,7 @@ export default class NewFeed extends Component {
     var widthWindow = Dimensions.get('window').width;
     var heightWindow = Dimensions.get('window').height;
     return (
+      <KeyboardAvoidingView behavior = "padding" style = {{flex: 1}}>
       <View style={style.main}>
         <View style={style.feed}>
           <ScrollView
@@ -292,6 +302,7 @@ export default class NewFeed extends Component {
           </TouchableOpacity>
         </View>
       </View>
+      </KeyboardAvoidingView>
     );
   }
 }
