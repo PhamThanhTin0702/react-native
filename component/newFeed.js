@@ -9,6 +9,7 @@ import {
   Modal,
   TextInput,
   ImageBackground,
+  KeyboardAvoidingView
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import socket from 'socket.io-client';
@@ -116,9 +117,10 @@ export default class NewFeed extends Component {
 
         <ImageBackground source={{uri: item}} style={{flex: 1}}>
           <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            colors={['#000000', '#333333']}
+            start={{x: 0, y: 0}} 
+            end={{x: 1.0, y: 1.0}}
+            locations={[0.3,0.6,1]}
+            colors={['#000000', '#1A1A1A', '#202020']}
             style={style.linearGradient}></LinearGradient>
         </ImageBackground>
         <View
@@ -167,9 +169,10 @@ export default class NewFeed extends Component {
               }}></TouchableOpacity>
           </View>
           <View style={[style.sizeModal, style.borderModal]}>
-            <View>
               <View>
-                <ScrollView>
+                <ScrollView
+                  showsHorizontalScrollIndicator={false}
+                >
                   <View style={style.borderViewCaption}>
                     <Text style={[style.textStyle, style.centerMultiText]}>
                       There are several definitions of what constitutes a
@@ -195,17 +198,50 @@ export default class NewFeed extends Component {
                   {this.renderMessage()}
                 </ScrollView>
               </View>
-            </View>
           </View>
-          <View
-            style={{
-              flex: 1,
-              width: widthWindow,
-              alignItems: 'center',
+          <KeyboardAvoidingView behavior = "position"
+          style = {{
+            flex: 1,
+            width: widthWindow,
+            paddingLeft: 10,
+            paddingRight: 10,
+            backgroundColor: 'black',
+            justifyContent: 'center'
+          }}>
+            <View
+            style = {{
+              flexDirection: 'row',
+              alignItems: 'center'
+            }}>
+              <TextInput
+                style={[style.borderTextInput, style.textStyle]}
+                placeholder="Type comment here..."
+                placeholderTextColor="white"
+                multiline={true}
+                value={this.state.messageInput}
+                onChangeText={value => {
+                  this.setState({
+                    messageInput: value,
+                  });
+                }}
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  this.sendMessage();
+                }}>
+                <Image
+                  style={style.iconSend}
+                  source={(source = require('../assets/images/icons/arrow.png'))}
+                />
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+          {/* <KeyboardAvoidingView behavior ="position" style = {{
+              flex: 1,width: widthWindow,
+              //alignItems: 'center',
               backgroundColor: '#0e0e0e',
               padding: 10,
-              flexDirection: 'row',
-            }}>
+              }}>
             <TextInput
               style={[style.borderTextInput, style.textStyle]}
               placeholder="Type comment here..."
@@ -227,7 +263,7 @@ export default class NewFeed extends Component {
                 source={(source = require('../assets/images/icons/arrow.png'))}
               />
             </TouchableOpacity>
-          </View>
+          </KeyboardAvoidingView> */}
         </Modal>
       </View>
     ));
@@ -239,7 +275,10 @@ export default class NewFeed extends Component {
     return (
       <View style={style.main}>
         <View style={style.feed}>
-          <ScrollView horizontal={true} pagingEnabled={true}>
+          <ScrollView
+          horizontal={true}
+          pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}>
             {this.loadPageImage()}
           </ScrollView>
         </View>

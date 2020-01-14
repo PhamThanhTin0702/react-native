@@ -12,7 +12,13 @@ const AppNavigator = createStackNavigator({
     // Blog: { screen: Blog },
     // BlogDetail: { screen: BlogDetail },
     // PostBlog: {screen: PostBlog}
-    Login: { screen: Login },
+    Login: { screen: Login,
+        navigationOptions: {
+            headerStyle: {
+                backgroundColor: '#00253f'
+            }
+        }
+     },
     NewFeed: { 
         screen: NewFeed,
         navigationOptions:  {            

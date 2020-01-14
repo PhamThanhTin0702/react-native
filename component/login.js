@@ -122,7 +122,7 @@ export default class Login extends Component {
 const style = StyleSheet.create({
     main: {
         flex: 1,
-        backgroundColor: '#005c83',
+        backgroundColor: '#00253f',
         padding: 1,
     },
     formLogin: {
@@ -139,10 +139,10 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     sizeIcon: {
-        height:40,
-        width: 40,
-        borderRadius: 40/2,
-        marginRight: 20
+        height:25,
+        width: 25,
+        borderRadius: 25/2,
+        marginRight: 15
     },
     textInput: {
         width: 270,
