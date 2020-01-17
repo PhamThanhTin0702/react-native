@@ -14,12 +14,15 @@ import {
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import socket from 'socket.io-client';
 import LinearGradient from 'react-native-linear-gradient';
+import axios from 'axios';
+import {Buffer} from 'buffer'
 
 var config = require('../config/config');
 
 export default class NewFeed extends Component {
   constructor(props) {
     super(props);
+    this.myRef = React.createRef()
     this.io = socket(config.server);
     this.state = {
       images: [
@@ -30,7 +33,15 @@ export default class NewFeed extends Component {
       modalVisible: false,
       chats: [],
       messageInput: '',
+      image: '',
+      scrollHeight: 0
     };
+  }
+
+  scrollEnd() {
+    setTimeout(()=>{
+      this.refs.scrollViewComment.scrollToEnd({animated: false})
+    }, 1000)
   }
 
   componentDidMount() {
@@ -40,9 +51,22 @@ export default class NewFeed extends Component {
         chats: this.state.chats.concat(message),
       });
     });
+
+  
+    //this.refs.scrollView.scrollTo({y: this.state.scrollHeight})
+
   }
 
-  UNSAFE_componentWillMount() {
+
+  async UNSAFE_componentWillMount() {
+    // var response = await axios.get('http://localhost:5000/api/user/upfile', {
+    //   responseType: 'arraybuffer' 
+    // })
+    // this.setState({
+    //   image: response.request._response
+    // })
+    
+
     this.io.on('sendMessage', messages => {
       this.setState({
         chats: [...messages],
@@ -72,6 +96,7 @@ export default class NewFeed extends Component {
           style.centerJustity,
           style.boderViewMessage,
         ]}>
+          {/* source={{ uri: `data:image/png;base64,`+this.state.image}} */}
         <Image
           style={[style.iconAvatar]}
           source={(source = require('../assets/images/icons/man.png'))}
@@ -171,12 +196,12 @@ export default class NewFeed extends Component {
           <View style={[style.sizeModal, style.borderModal]}>
               <View>
                 <ScrollView
-                  ref = "scrollView"
-                  onContentSizeChange = {(wid, hei)=> {
-                    this.refs.scrollView.scrollTo({y: hei})
+                  ref = 'scrollViewComment'
+                  onEndReached = {true}
+                  onContentSizeChange = {()=> {
+                  
                   }}
-                  showsVerticalScrollIndicator={false}
-                  >
+                  showsVerticalScrollIndicator={false}>
                   <View style={style.borderViewCaption}>
                     <Text style={[style.textStyle, style.centerMultiText]}>
                       There are several definitions of what constitutes a
@@ -232,6 +257,7 @@ export default class NewFeed extends Component {
               <TouchableOpacity
                 onPress={() => {
                   this.sendMessage();
+                  this.scrollEnd()
                 }}>
                 <Image
                   style={style.iconSend}
@@ -240,34 +266,6 @@ export default class NewFeed extends Component {
               </TouchableOpacity>
             </View>
           </KeyboardAvoidingView>
-          {/* <KeyboardAvoidingView behavior ="position" style = {{
-              flex: 1,width: widthWindow,
-              //alignItems: 'center',
-              backgroundColor: '#0e0e0e',
-              padding: 10,
-              }}>
-            <TextInput
-              style={[style.borderTextInput, style.textStyle]}
-              placeholder="Type comment here..."
-              placeholderTextColor="white"
-              multiline={true}
-              value={this.state.messageInput}
-              onChangeText={value => {
-                this.setState({
-                  messageInput: value,
-                });
-              }}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                this.sendMessage();
-              }}>
-              <Image
-                style={style.iconSend}
-                source={(source = require('../assets/images/icons/arrow.png'))}
-              />
-            </TouchableOpacity>
-          </KeyboardAvoidingView> */}
         </Modal>
       </View>
     ));
@@ -287,8 +285,13 @@ export default class NewFeed extends Component {
           </ScrollView>
         </View>
 
+        
+
         <View style={[style.footer, style.centerItem]}>
-          <TouchableOpacity>
+          <TouchableOpacity
+          onPress = {()=> {
+            this.props.navigation.navigate('PostBlog')
+          }}>
             <Image
               source={(source = require('../assets/images/icons/plus.png'))}
               style={[style.sizeIcon]}
@@ -312,6 +315,7 @@ const style = StyleSheet.create({
   footer: {
     flex: 1,
     padding: 3,
+    position: 'relative'
   },
   sizeIcon: {
     height: 50,
@@ -423,4 +427,11 @@ const style = StyleSheet.create({
     zIndex: 1,
     borderRadius: 5
   },
+  postModalView: {
+    height: 700,
+    width: Dimensions.get('window').width,
+    backgroundColor: 'yellow',
+    bottom: 0,
+    position: 'absolute'
+  }
 });

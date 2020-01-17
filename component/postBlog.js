@@ -34,12 +34,13 @@ export default class PostBlog extends Component {
         } }>
           <Image
             style = { styles.icon_send }
-            source={source=require('../assets/images/icons/send.png')} 
-          ></Image>
+            source={(source=require('../assets/images/icons/network.png'))} 
+          />
         </TouchableOpacity>
       )
     };
   };
+
 
   UNSAFE_componentWillMount() {
     
@@ -69,9 +70,11 @@ export default class PostBlog extends Component {
 
     try {
       ImagePicker.launchImageLibrary(options, (resImage) => {
-        this.setState({
-          imageFile: this.state.imageFile.concat(resImage.uri)
-        })
+        if(resImage.didCancel !== true) {
+          this.setState({
+            imageFile: this.state.imageFile.concat(resImage.uri)
+          })
+        }
       })
     } catch (error) {
       throw new Error(error)
@@ -84,7 +87,6 @@ export default class PostBlog extends Component {
       const file = await DocumentPicker.pick({
         type: [DocumentPicker.types.images],
       });
-
       if (file) {
         const imageResize = await this.resizeImage(file.uri)
         this.setState({
@@ -120,13 +122,6 @@ export default class PostBlog extends Component {
     if(this.state.imageFile[this.state.imageFile.length-1]) {
       return (
         <TouchableOpacity style={styles.size_button_images}>
-          {/* <Image
-            style={styles.size_images}
-            source={{
-              uri:
-                this.state.imageFile[1],
-            }}
-          /> */}
           <View >
             
           </View>
@@ -179,10 +174,16 @@ export default class PostBlog extends Component {
           </ScrollView>
         </View>
         <View style={styles.body}>
-          <Text style = { styles.text_title } >Title</Text>
-          <TextInput style = { styles.input_title } multiline = {true} placeholder = "Please type title here"></TextInput>
-          <Text style = { styles.text_title }>Share something</Text>
-          <TextInput style = { styles.input_content } multiline = {true} placeholder = "Type here, If you'd like"></TextInput>
+          <View style = { styles.viewTextTitle }>
+            <Text style = { styles.text_title }>Share something</Text>
+          </View>
+          <View style = { styles.viewTextInputContent }>
+            <TextInput 
+            style = { styles.input_content } 
+            multiline = {true} 
+            placeholder = "Type here, If you'd like" 
+            placeholderTextColor = "gray"></TextInput>
+          </View>
         </View>
       </View>
     );
@@ -193,7 +194,8 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     width: '100%',
-    paddingBottom: 20,
+    paddingBottom: 0.1,
+    backgroundColor: '#222222'
   },
   header: {
     flex: 2,
@@ -208,6 +210,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 8,
     padding: 10,
+    backgroundColor: 'black'
   },
   button_icon_add: {
     alignItems: 'center',
@@ -225,6 +228,8 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     marginRight: 20,
     borderRadius: 10,
+    borderStyle: 'dashed',
+    backgroundColor: 'black'
   },
   size_images: {
     height: '100%',
@@ -236,39 +241,49 @@ const styles = StyleSheet.create({
   
   text_title: {
     fontSize: 25,
-    height: 30,
-    marginTop: 20,
-    flex: 1,
-    fontFamily: 'Arciform',
-   
+    color: 'white',
+  },
+  viewTextTitle: {
+    backgroundColor: '#2f2f2f',
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 5,
+    borderWidth: 0.5,
+    borderColor: 'white',
+    flex: 0.5,
+    padding: 10,
+    marginBottom: 10,
+    borderBottomColor: '#1fdccd',
+    borderBottomWidth: 2
+  },
+
+  viewTextInputContent: {
+    borderWidth: 0.5,
+    borderColor: 'gray',
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    paddingLeft: 10,
+    flex: 9.5,
+    marginBottom: 20
   },
   input_title: {
-    //height: 30,
     width: '100%',
     borderWidth: 0.5,
     borderColor: 'gray',
     borderRadius: 5,
     marginTop: 10,
     paddingLeft: 10,
-    fontSize: 30,
+    fontSize: 20,
     marginTop: 10,
-    flex: 1
+    flex: 1,
   },
   input_content: {
-    height: '100%',
-    width: '100%',
-    borderWidth: 0.5,
-    borderColor: 'gray',
-    borderRadius: 5,
-    marginTop: 10,
-    paddingLeft: 10,
-    fontSize: 30,
-    flex: 7
+    fontSize: 20,
+    color: "white"
   },
   icon_send: {
     height: 30,
     width: 30,
-    marginRight: 10
+    marginRight: 20,
   },
   size_close_image: {
     position: 'absolute',

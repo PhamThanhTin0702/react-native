@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* TestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TestTests.m */; };
 		049103CE29CA43118AD421BE /* Aerotis.otf in Resources */ = {isa = PBXBuildFile; fileRef = C21D4C61607D43C883FCF8E5 /* Aerotis.otf */; };

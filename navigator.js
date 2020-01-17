@@ -5,6 +5,7 @@ import Feed from './component/feed'
 import PostBlog from './component/postBlog'
 import NewFeed from './component/newFeed'
 import Login from './component/login'
+import {Button} from 'react-native'
 
 
 const AppNavigator = createStackNavigator({
@@ -22,6 +23,12 @@ const AppNavigator = createStackNavigator({
     NewFeed: { 
         screen: NewFeed,
         navigationOptions:  {            
+        }
+    },
+    PostBlog: {
+        screen: PostBlog,
+        navigationOptions: {
+            
         }
     }
 }, {
